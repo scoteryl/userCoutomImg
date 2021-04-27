@@ -7,11 +7,13 @@
     <!-- 按钮 -->
     <div class="options">
       <!-- <div class="btn" ><i class="el-icon-circle-plus-outline"></i></div> -->
-      <div class="btn" v-if="optionBtnControl.color">
-        <img src="../images/colorIcon.svg">
-        <el-color-picker size="small" v-model="setColor" id="textColorSetting" @change="options('color')"></el-color-picker>
+      <div class="btn" v-if="optionBtnControl.color" @click="setColorClick">
+        <img src="../images/color_icon.png">
+        <el-color-picker ref="viewColorSet" size="small" v-model="setColor" id="textColorSetting" @change="options('color')"></el-color-picker>
       </div>
-      <div class="btn" v-if="optionBtnControl.remove" @click="options('remove')"><i class="el-icon-delete"></i></div>
+      <div class="btn" v-if="optionBtnControl.remove" @click="options('remove')">
+        <img src="../images/del_icon.png">
+      </div>
     </div>
     <div class="saveBtn">
       <ul>
@@ -273,7 +275,12 @@ export default {
       var dataURL = canvas.toDataURL("image/png");
       return dataURL;
     },
-   
+    // 设置颜色
+    setColorClick: function(){
+      if(this.$refs['viewColorSet']){
+        this.$refs['viewColorSet'].$el.querySelector('.el-color-picker__trigger').click();
+      }
+    },
     // 添加组件
     addComponent: function({type: type, top: top, left: left, width:width, height:height, content: content, imgData: imgData}){
       // 添加项
@@ -439,8 +446,7 @@ export default {
       });
       // 恢复边框颜色
       this.components[0].set("stroke", 'red');
-      this.components[0].set("fill", 'rgba(255,255,255,0)');
-      console.log(dataURL)
+      this.components[0].set("fill", 'rgba(255,255,255,1)');
 
       // 贴花返回数据
       var imgData = {}, isAddText = false, jsonDate = [];
@@ -647,24 +653,25 @@ export default {
     }
     >.options{
       position: absolute;
-      top: 0.3rem;
-      right: 0.3rem;
+      top: 0.5rem;
+      right: 0.5rem;
       >.btn{
-        width: 2rem;
-        height: 2rem;
-        line-height: 1.9rem;
-        font-size: 1.5rem;
-        color: #aaa;
-        text-align: center;
-        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        // line-height: 1.9rem;
+        // font-size: 1.5rem;
+        // color: #aaa;
+        // text-align: center;
+        // border-radius: 50%;
         overflow: hidden;
         position: relative;
         &:not(:last-child){
           margin-bottom: .5rem;
         }
         >img{
-          width: 23px;
-          height: 23px;
+          display: block;
+          width: 100%;
+          height: 100%;
         }
         >.el-color-picker{
           position: absolute;
