@@ -33,9 +33,10 @@
       position="bottom"
       get-container="#app"
       overlay-class="addComponentPopup"
+      class="addComponentMain"
     >
       <div class="addPopupMain">
-        <div class="tit">添加组件</div>
+        <!-- <div class="tit">添加组件</div> -->
         <div class="body">
           <div class="type">
             <ul>
@@ -45,7 +46,7 @@
           </div>
           <div class="content">
             <div class="textInput" v-if="addPopup.type==1">
-              <div class="group">
+              <div class="group" style="margin-bottom: 0.5rem;">
                 <div class="label">颜色</div>
                 <div class="setInput">
                   <el-color-picker size="small" v-model="addPopup.textColor"></el-color-picker>
@@ -54,13 +55,25 @@
               <div class="group">
                 <el-input
                   type="textarea"
-                  :rows="3"
+                  :rows="5"
                   placeholder="请输入内容"
                   v-model="addPopup.text">
                 </el-input>
               </div>
             </div>
             <div class="imgList" v-if="addPopup.type==2">
+              <div class="specs">
+                <div class="group">
+                  <el-radio-group v-model="addPopup.imgSize" >
+                    <el-radio label="1" :disabled="addPopup.imgSpecs.indexOf('1')==-1">大</el-radio>
+                    <el-radio label="2" :disabled="addPopup.imgSpecs.indexOf('2')==-1">中</el-radio>
+                    <el-radio label="3" :disabled="addPopup.imgSpecs.indexOf('3')==-1">小</el-radio>
+                  </el-radio-group>
+                  <!-- <div class="label">规格</div>
+                  <div class="setInput">
+                  </div> -->
+                </div>
+              </div>
               <div class="listView">
                 <div class="list" :style="{width: images.length*6.5-0.5+'rem'}">
                   <div class="item" 
@@ -74,24 +87,14 @@
                   </div>
                 </div>
               </div>
-              <div class="specs">
-                <div class="group">
-                  <div class="label">规格</div>
-                  <div class="setInput">
-                    <el-radio-group v-model="addPopup.imgSize" >
-                      <el-radio label="1" :disabled="addPopup.imgSpecs.indexOf('1')==-1">大</el-radio>
-                      <el-radio label="2" :disabled="addPopup.imgSpecs.indexOf('2')==-1">中</el-radio>
-                      <el-radio label="3" :disabled="addPopup.imgSpecs.indexOf('3')==-1">小</el-radio>
-                    </el-radio-group>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
         <div class="pupup-btns">
-          <el-button round @click="submitAddComponent('false')">取消</el-button>
-          <el-button type="primary" round @click="submitAddComponent('true')">添加</el-button>
+          <div class="btn" @click="submitAddComponent(false)"><span>取消</span></div>
+          <div class="btn" @click="submitAddComponent(true)"><span>添加</span></div>
+          <!-- <el-button round @click="submitAddComponent('false')">取消</el-button>
+          <el-button type="primary" round @click="submitAddComponent('true')">添加</el-button> -->
         </div>
       </div>
     </van-popup>
@@ -722,147 +725,182 @@ export default {
   }
 
   // 添加弹窗
-  .addPopupMain{
-    >.tit{
-      padding: 0 .5rem;
-      height: 2rem;
-      line-height: 2rem;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #333;
-    }
-    >.body{
-      padding: 0 .5rem;
-      >.type{
-        >ul{
-          overflow: hidden;
-          >li{
-            margin-right: 0.5rem;
-            padding: 0 1.5rem;
-            float: left;
-            height: 1.5rem;
-            line-height: 1.4rem;
-            font-size: 0.8rem;
-            color: #333;
-            border: 0.05rem solid #aaa;
-            border-radius:  1.5rem;
-            &.active{
-              color: @activeColor;
-              border-color: @activeColor;
-            }
-          }
-        }
+  .addComponentMain.van-popup{
+    background-color: rgba(0,0,0,0);
+    .addPopupMain{
+      >.tit{
+        padding: 0 .5rem;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #333;
       }
-      >.content{
-        padding: .5rem 0;
-        max-height: 40vh;
-        overflow-y: auto;
-        >.textInput{
-          >.group{
-            >.label{
+      >.body{
+        // padding: 0 .5rem;
+        >.type{
+          >ul{
+            padding: 0 0.5rem;
+            overflow: hidden;
+            >li{
+              margin-right: 0.5rem;
               float: left;
-              width: 80px;
-              height: 40px;
-              line-height: 40px;
-              font-size: 14px;
-              color: #333;
+              width: 9rem;
+              height: 2.5rem;
+              line-height: 2rem;
+              font-size: 1rem;
+              font-weight: bold;
+              color: #785B23;
               text-align: center;
-            }
-            >.setInput{
-              margin-left: 80px;
-              height: 40px;
-              >.el-color-picker{
-                float: left;
-                line-height: 32px;
+
+              background: url(../images/tabBG.png) no-repeat;
+              background-size: 100% auto;
+
+              &.active{
+                line-height: 2.5rem;
+                background: #fff;
+                border-radius: 0.5rem 0.5rem 0 0;
+                // color: @activeColor;
+                // border-color: @activeColor;
               }
             }
           }
         }
-
-        >.imgList{
-          >.listView{
-            padding-bottom: 0.5rem;
-            width: 100%;
-            overflow: auto;
-            >.list{
-              >.item{
-                float: left;
-                width: 6rem;
-                padding: 0.2rem .5rem;
-                border: 0.02rem solid transparent;
-                border-radius: 0.25rem;
-                >.img{
-                  height: 5rem;
-                  display: flex;
-                  flex-direction: row;
-                  justify-content: center;
-                  align-items: center;
-                  >img{
-                    max-width: 100%;
-                    max-height: 100%;
-                  }
-                }
-                >span{
-                  margin-top: 0.2rem;
-                  display: block;
-                  height: 1rem;
-                  line-height: 1rem;
-                  font-size: 0.6rem;
-                  color: #666;
-                  text-align: center;
-                }
-                &:not(:last-child){
-                  margin-right: 0.5rem;
-                }
-                &.active{
-                  border-color: @activeColor;
-                  >span{
-                    color: @activeColor;
-                  }
-                }
-              }
-            }
-          }
-
-          >.specs{
-            padding-top: 0.5rem;
-            border-top: 0.02rem solid #ccc;
+        >.content{
+          padding: .5rem 1rem;
+          max-height: 40vh;
+          overflow-y: auto;
+          background-color: #fff;
+          border-radius: .5rem 0.5rem 0 0;
+          >.textInput{
             >.group{
-              padding: 0 0.3rem;
               >.label{
                 float: left;
-                width: 3rem;
-                height: 2rem;
-                line-height: 2rem;
-                font-size: 0.34rem;
+                width: 80px;
+                height: 40px;
+                line-height: 40px;
+                font-size: 14px;
                 color: #333;
                 text-align: center;
               }
               >.setInput{
-                margin-left: 3.2rem;
-                height: 2rem;
-                line-height: 2rem;
+                margin-left: 80px;
+                height: 40px;
+                >.el-color-picker{
+                  float: left;
+                  line-height: 32px;
+                }
+              }
+            }
+          }
+
+          >.imgList{
+            >.listView{
+              padding-bottom: 0.5rem;
+              width: 100%;
+              overflow: auto;
+              >.list{
+                >.item{
+                  float: left;
+                  width: 6rem;
+                  padding: 0.2rem .5rem;
+                  border: 0.02rem solid transparent;
+                  border-radius: 0.25rem;
+                  >.img{
+                    height: 5rem;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    >img{
+                      max-width: 100%;
+                      max-height: 100%;
+                    }
+                  }
+                  >span{
+                    margin-top: 0.2rem;
+                    display: block;
+                    height: 1rem;
+                    line-height: 1rem;
+                    font-size: 0.6rem;
+                    color: #666;
+                    text-align: center;
+                  }
+                  &:not(:last-child){
+                    margin-right: 0.5rem;
+                  }
+                  &.active{
+                    border-color: @activeColor;
+                    >span{
+                      color: @activeColor;
+                    }
+                  }
+                }
+              }
+            }
+
+            >.specs{
+              padding-bottom: 0.5rem;
+              // border-top: 0.02rem solid #ccc;
+              >.group{
+                padding: 0 0.3rem;
                 .el-radio-group{
                   display: block;
                   height: 2rem;
                   line-height: 2rem;
                   padding: 0.4rem 0;
                 }
+                >.label{
+                  float: left;
+                  width: 3rem;
+                  height: 2rem;
+                  line-height: 2rem;
+                  font-size: 0.34rem;
+                  color: #333;
+                  text-align: center;
+                }
+                >.setInput{
+                  margin-left: 3.2rem;
+                  height: 2rem;
+                  line-height: 2rem;
+                }
               }
             }
           }
         }
       }
-    }
-    >.pupup-btns{
-      padding: .3rem 0.8rem;
-      text-align: right;
-      overflow: hidden;
-      .el-button{
-        margin-left: 0.5rem;
-        float: right;
-        padding: 0.3rem 1rem;
-        // height: 1.8rem;
+      >.pupup-btns{
+        padding: 0 0.5rem 0.5rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        background-color: #fff;
+        >.btn{
+          background: url(../images/btnBG.png) no-repeat;
+          background-size: 100% 100%;
+          width: 40%;
+          height: 2rem;
+          line-height: 2rem;
+          font-size: 1rem;
+          color: #785B23;
+          text-align: center;
+          >span{
+            padding-left: 0.5rem;
+            letter-spacing: 0.5rem;
+          }
+        }
+
+
+        // padding: .3rem 1.5rem;
+        // text-align: right;
+        // overflow: hidden;
+        // .el-button{
+        //   margin-left: 0.5rem;
+        //   float: right;
+        //   padding: 0.3rem 1rem;
+        //   // height: 1.8rem;
+        // }
       }
     }
   }
