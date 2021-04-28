@@ -698,21 +698,21 @@ export default {
           width: 50%;
           height: 100%;
           // height: 2.5rem;
-          padding: 0.4rem 0.2rem;
+          padding: 0.2rem;
           &:first-child{
             border-right: 0.02rem solid  #aaa;
           }
           >.icon{
-            height: 1.2rem;
-            line-height: 1.2rem;
-            font-size: 1rem;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            font-size: 1.2rem;
             text-align: center;
           }
           >span{
             display: block;
-            height: .8rem;
-            line-height: .8rem;
-            font-size: 0.2rem;
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.8rem;
             text-align: center;
           }
         }
