@@ -40,7 +40,7 @@
         <div class="body">
           <div class="type">
             <ul>
-              <li :class="{active: addPopup.type==1}" @click="addPopup.type=1">文字</li>
+              <li :class="{active: addPopup.type==1}" @click="addPopup.type=1">文案</li>
               <li :class="{active: addPopup.type==2}" @click="addPopup.type=2">贴花</li>
             </ul>
           </div>
@@ -298,7 +298,7 @@ export default {
             width: width,
             height: height,
             fill: "rgba(255,255,255,1)",
-            stroke: "red",
+            stroke: "rgba(255,255,255,0)",
             strokeWidth: 5,
             // // 锁定缩放
             // lockScalingX: true,
@@ -435,7 +435,7 @@ export default {
       this.fabricHandle.discardActiveObject(); 
       this.fabricHandle.renderAll(); 
       // 去边框颜色
-      this.components[0].set("stroke", 'rgba(0,0,0,0)');
+      // this.components[0].set("stroke", 'rgba(0,0,0,0)');
       this.components[0].set("fill", 'rgba(255,255,255,0)');
       // 生成图片base64
       var dataURL = this.fabricHandle.toDataURL({
@@ -448,7 +448,7 @@ export default {
         height: this.configView.h+5
       });
       // 恢复边框颜色
-      this.components[0].set("stroke", 'red');
+      // this.components[0].set("stroke", 'red');
       this.components[0].set("fill", 'rgba(255,255,255,1)');
 
       // 贴花返回数据
@@ -649,7 +649,9 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: red;
+    background: url(../images/viewBG.png) no-repeat;
+    background-size: 100% 100%;
+
     >.view{
       width: 100%;
       height: calc(100% - 3rem);
@@ -740,7 +742,7 @@ export default {
         // padding: 0 .5rem;
         >.type{
           >ul{
-            padding: 0 0.5rem;
+            // padding: 0 0.5rem;
             overflow: hidden;
             >li{
               margin-right: 0.5rem;
@@ -771,7 +773,7 @@ export default {
           max-height: 40vh;
           overflow-y: auto;
           background-color: #fff;
-          border-radius: .5rem 0.5rem 0 0;
+          // border-radius: .5rem 0.5rem 0 0;
           >.textInput{
             >.group{
               >.label{
